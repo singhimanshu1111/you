@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💕 For My Valentine 💕</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Playfair+Display:wght@400;600&family=Poppins:wght@300;400;600&family=Dancing+Script:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+            height: 100vh;
+            position: relative;
+        }
+
+        /* Loading Screen */
+        #loadingScreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #89CFF0 0%, #B4D7E8 30%, #FFB6C1 70%, #FFC0CB 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            transition: opacity 0.8s ease;
+        }
+
+        .loading-hearts {
+            font-size: 80px;
+            animation: heartBeat 1.2s infinite;
+            margin-bottom: 40px;
+            filter: drop-shadow(0 5px 15px rgba(255, 105, 180, 0.5));
+        }
+
+        @keyframes heartBeat {
+            0%, 100% { 
+                transform: scale(1); 
+            }
+            25% { 
+                transform: scale(1.15); 
+            }
+            50% { 
+                transform: scale(1); 
+            }
+            75% { 
+                transform: scale(1.1); 
+            }
+        }
+
+        .loading-text {
+            font-family: 'Pacifico', cursive;
+            font-size: 3em;
+            color: white;
+            text-shadow: 3px 3px 10px rgba(0,0,0,0.3);
+            margin-bottom: 30px;
+            animation: fadeInOut 2s ease-in-out infinite;
+        }
+
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+
+        .loading-counter {
+            font-size: 5em;
+            color: #FF1493;
+            font-weight: bold;
+            text-shadow: 3px 3px 8px rgba(255,255,255,0.8);
+            animation: counterPulse 1s ease-in-out infinite;
+        }
+
+        @keyframes counterPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        /* Page Container */
+        .page {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+        }
+
+        .page.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        /* Sunflower Background */
+        .sunflower-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(rgba(255, 245, 250, 0.85), rgba(255, 235, 245, 0.85)),
+                url('data:image/svg+xml,<svg width="120" height="120" xmlns="http://www.w3.org/2000/svg"><circle cx="60" cy="60" r="18" fill="%23FFD700" opacity="0.6"/><circle cx="60" cy="35" r="10" fill="%23FFA500" opacity="0.5"/><circle cx="78" cy="45" r="10" fill="%23FFA500" opacity="0.5"/><circle cx="78" cy="75" r="10" fill="%23FFA500" opacity="0.5"/><circle cx="60" cy="85" r="10" fill="%23FFA500" opacity="0.5"/><circle cx="42" cy="75" r="10" fill="%23FFA500" opacity="0.5"/><circle cx="42" cy="45" r="10" fill="%23FFA500" opacity="0.5"/></svg>');
+            background-size: 200px 200px;
+            filter: blur(3px);
+            z-index: -1;
+        }
+
+        /* Gradient Background for each page */
+        .page1-bg { background: linear-gradient(135deg, #89CFF0 0%, #B4D7E8 50%, #FFE4F0 100%); }
+        .page2-bg { background: linear-gradient(135deg, #FFE4F0 0%, #FFD4E9 50%, #FFC8E3 100%); }
+        .page3-bg { background: linear-gradient(135deg, #FFC8E3 0%, #FFB6D9 50%, #FFA8D0 100%); }
+        .page4-bg { background: linear-gradient(135deg, #FFA8D0 0%, #FF9ACB 50%, #FF8CC6 100%); }
+        .page5-bg { background: linear-gradient(135deg, #FF8CC6 0%, #FF7EC1 50%, #FF70BC 100%); }
+        .page6-bg { background: linear-gradient(135deg, #FF70BC 0%, #FF62B7 50%, #FF69B4 100%); }
+        .page7-bg { background: linear-gradient(135deg, #FFE4F0 0%, #FFD4E9 30%, #FFC0CB 60%, #FFB6C1 100%); }
+
+        /* Teddy Bear Decorations */
+        .teddy-container {
+            position: fixed;
+            font-size: 100px;
+            opacity: 0.2;
+            z-index: 1;
+            animation: float 8s infinite ease-in-out;
+            filter: drop-shadow(0 5px 15px rgba(255, 105, 180, 0.3));
+        }
+
+        .teddy-tl { top: 40px; left: 40px; }
+        .teddy-tr { top: 40px; right: 40px; animation-delay: 2s; }
+        .teddy-bl { bottom: 40px; left: 40px; animation-delay: 4s; }
+        .teddy-br { bottom: 40px; right: 40px; animation-delay: 3s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(-5deg); }
+            50% { transform: translateY(-25px) rotate(5deg); }
+        }
+
+        /* Message Card */
+        .message-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 60px 50px;
+            border-radius: 40px;
+            box-shadow: 0 25px 70px rgba(255, 105, 180, 0.4);
+            max-width: 700px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+            border: 4px solid rgba(255, 182, 193, 0.7);
+            animation: slideIn 1s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .message-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3em;
+            color: #FF1493;
+            margin-bottom: 30px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(255, 105, 180, 0.3);
+            animation: titleGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes titleGlow {
+            0%, 100% { text-shadow: 2px 2px 4px rgba(255, 105, 180, 0.3); }
+            50% { text-shadow: 2px 2px 15px rgba(255, 105, 180, 0.6); }
+        }
+
+        .message-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8em;
+            color: #D63384;
+            line-height: 1.8;
+            font-weight: 400;
+        }
+
+        /* Floating Hearts */
+        .floating-hearts {
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2.5em;
+            animation: floatHearts 3s ease-in-out infinite;
+        }
+
+        @keyframes floatHearts {
+            0%, 100% { transform: translateX(-50%) translateY(0px); }
+            50% { transform: translateX(-50%) translateY(-15px); }
+        }
+
+        /* Love Letter Page */
+        .love-letter {
+            background: linear-gradient(135deg, #FFF9F0 0%, #FFFAED 100%);
+            padding: 60px 50px;
+            border-radius: 30px;
+            max-width: 800px;
+            width: 90%;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.3);
+            border: 6px solid #DEB887;
+            position: relative;
+            z-index: 10;
+            animation: slideIn 1s ease-out;
+        }
+
+        .letter-envelope {
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            font-size: 5em;
+            animation: envelope 2s ease-in-out infinite;
+            filter: drop-shadow(0 5px 15px rgba(255, 105, 180, 0.4));
+        }
+
+        @keyframes envelope {
+            0%, 100% { transform: rotate(-10deg); }
+            50% { transform: rotate(10deg); }
+        }
+
+        .letter-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3em;
+            color: #FF1493;
+            text-align: center;
+            margin-bottom: 40px;
+            font-weight: 700;
+        }
+
+        .letter-content {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4em;
+            color: #8B4513;
+            line-height: 2.2;
+            margin-bottom: 40px;
+        }
+
+        .promises-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2em;
+            color: #FF1493;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .promise-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .promise-item {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.3em;
+            color: #D63384;
+            margin-bottom: 20px;
+            padding-left: 10px;
+            animation: slideInLeft 0.6s ease-out;
+            animation-fill-mode: both;
+        }
+
+        .promise-item:nth-child(1) { animation-delay: 0.2s; }
+        .promise-item:nth-child(2) { animation-delay: 0.4s; }
+        .promise-item:nth-child(3) { animation-delay: 0.6s; }
+        .promise-item:nth-child(4) { animation-delay: 0.8s; }
+        .promise-item:nth-child(5) { animation-delay: 1s; }
+
+        @keyframes slideInLeft {
+            from {
+                transform: translateX(-30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .letter-closing {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2em;
+            color: #FF1493;
+            text-align: right;
+            margin-top: 40px;
+            font-weight: 600;
+        }
+
+        /* Navigation Button */
+        .nav-button {
+            position: fixed;
+            bottom: 50px;
+            right: 50px;
+            background: linear-gradient(135deg, #FF69B4 0%, #FF1493 100%);
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            border-radius: 50px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.2em;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(255, 105, 180, 0.5);
+            transition: all 0.3s ease;
+            z-index: 100;
+            animation: buttonBounce 2s ease-in-out infinite;
+        }
+
+        @keyframes buttonBounce {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .nav-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 12px 35px rgba(255, 105, 180, 0.7);
+        }
+
+        /* Particle Hearts */
+        .hearts-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        .particle-heart {
+            position: absolute;
+            font-size: 25px;
+            opacity: 0.6;
+            animation: particleFloat 12s linear infinite;
+        }
+
+        @keyframes particleFloat {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .loading-text { font-size: 2em; }
+            .loading-counter { font-size: 3.5em; }
+            .loading-hearts { font-size: 60px; }
+            .message-card { padding: 40px 30px; }
+            .message-title { font-size: 2.2em; }
+            .message-text { font-size: 1.4em; }
+            .love-letter { padding: 40px 30px; }
+            .letter-title { font-size: 2.2em; }
+            .letter-content { font-size: 1.2em; }
+            .promise-item { font-size: 1.1em; }
+            .teddy-container { font-size: 60px; }
+            .nav-button { 
+                bottom: 30px; 
+                right: 30px; 
+                padding: 14px 30px;
+                font-size: 1em;
+            }
+            .letter-envelope { 
+                font-size: 3em;
+                top: -30px;
+                right: -20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loadingScreen">
+        <div class="loading-hearts">💕</div>
+        <div class="loading-text">Valentine Moment Loading...</div>
+        <div class="loading-counter" id="counter">0</div>
+    </div>
+
+    <!-- Background Elements -->
+    <div class="sunflower-bg"></div>
+    <div class="teddy-container teddy-tl">🧸</div>
+    <div class="teddy-container teddy-tr">🧸</div>
+    <div class="teddy-container teddy-bl">🧸</div>
+    <div class="teddy-container teddy-br">🧸</div>
+    <div class="hearts-particles" id="heartsParticles"></div>
+
+    <!-- Page 1 -->
+    <div class="page page1-bg" id="page1">
+        <div class="message-card">
+            <div class="floating-hearts">💝✨💕</div>
+            <div class="message-title">My dear Valentine,</div>
+            <div class="message-text">
+                You make every moment magical and every day worth living 🌹
+            </div>
+        </div>
+    </div>
+
+    <!-- Page 2 -->
+    <div class="page page2-bg" id="page2">
+        <div class="message-card">
+            <div class="floating-hearts">🌸💖🌸</div>
+            <div class="message-title">Thank You</div>
+            <div class="message-text">
+                Thank you for making ordinary days feel special. 🌟
+            </div>
+        </div>
+    </div>
+
+    <!-- Page 3 -->
+    <div class="page page3-bg" id="page3">
+        <div class="message-card">
+            <div class="floating-hearts">🤝💗🤝</div>
+            <div class="message-title">You're My Rock</div>
+            <div class="message-text">
+                Thank you for being there with me in all my ups and downs. 💫
+            </div>
+        </div>
+    </div>
+
+    <!-- Page 4 -->
+    <div class="page page4-bg" id="page4">
+        <div class="message-card">
+            <div class="floating-hearts">😊💕😊</div>
+            <div class="message-title">Your Smile</div>
+            <div class="message-text">
+                I just want to see you smiling every day. 🌈
+            </div>
+        </div>
+    </div>
+
+    <!-- Page 5 -->
+    <div class="page page5-bg" id="page5">
+        <div class="message-card">
+            <div class="floating-hearts">🙏💝🙏</div>
+            <div class="message-title">My Blessing</div>
+            <div class="message-text">
+                You are my greatest blessing 🌺
+            </div>
+        </div>
+    </div>
+
+    <!-- Page 6 -->
+    <div class="page page6-bg" id="page6">
+        <div class="message-card">
+            <div class="floating-hearts">🌟💖🌟</div>
+            <div class="message-title">Life With You</div>
+            <div class="message-text">
+                Life is better with you in it. 💐
+            </div>
+        </div>
+    </div>
+
+    <!-- Love Letter Page -->
+    <div class="page page7-bg" id="page7">
+        <div class="love-letter">
+            <div class="letter-envelope">💌</div>
+            <div class="letter-title">My Dearest Love,</div>
+            <div class="letter-content">
+                Every moment with you feels like a beautiful dream I never want to wake up from. You bring color to my world, warmth to my heart, and joy to my soul.
+            </div>
+            <div class="promises-title">I promise to always:</div>
+            <ul class="promise-list">
+                <li class="promise-item">💞 Make you smile every day</li>
+                <li class="promise-item">💞 Support your dreams</li>
+                <li class="promise-item">💞 Love you unconditionally</li>
+                <li class="promise-item">💞 Create adventures together</li>
+                <li class="promise-item">💞 Cherish every moment with you</li>
+            </ul>
+            <div class="letter-closing">Forever Yours 💖</div>
+        </div>
+    </div>
+
+    <!-- Navigation Button -->
+    <button class="nav-button" id="nextBtn" onclick="nextPage()">Next 💕</button>
+
+    <script>
+        let currentPage = 0;
+        const totalPages = 7;
+
+        // Create floating particle hearts
+        function createParticleHearts() {
+            const container = document.getElementById('heartsParticles');
+            const hearts = ['💕', '💖', '💗', '💝', '💞', '💓', '❤️'];
+            
+            for (let i = 0; i < 25; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'particle-heart';
+                heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 12 + 's';
+                heart.style.animationDuration = (10 + Math.random() * 8) + 's';
+                container.appendChild(heart);
+            }
+        }
+
+        // Loading Screen Counter
+        let count = 0;
+        const counterInterval = setInterval(() => {
+            count++;
+            document.getElementById('counter').textContent = count;
+            if (count >= 3) {
+                clearInterval(counterInterval);
+                setTimeout(() => {
+                    document.getElementById('loadingScreen').style.opacity = '0';
+                    setTimeout(() => {
+                        document.getElementById('loadingScreen').style.display = 'none';
+                        showPage(1);
+                        createParticleHearts();
+                    }, 800);
+                }, 500);
+            }
+        }, 1000);
+
+        function showPage(pageNum) {
+            // Hide current page
+            if (currentPage > 0) {
+                document.getElementById('page' + currentPage).classList.remove('active');
+            }
+            
+            // Show new page
+            document.getElementById('page' + pageNum).classList.add('active');
+            currentPage = pageNum;
+            
+            // Update button text
+            const btn = document.getElementById('nextBtn');
+            if (pageNum === totalPages) {
+                btn.style.display = 'none';
+            } else {
+                btn.style.display = 'block';
+                btn.textContent = 'Next 💕';
+            }
+        }
+
+        function nextPage() {
+            if (currentPage < totalPages) {
+                showPage(currentPage + 1);
+            }
+        }
+
+        // Allow keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') {
+                nextPage();
+            }
+        });
+
+        // Touch/swipe support for mobile
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        document.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            if (touchStartX - touchEndX > 50) {
+                nextPage();
+            }
+        });
+    </script>
+</body>
+</html>
